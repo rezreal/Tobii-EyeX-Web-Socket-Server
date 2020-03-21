@@ -1,14 +1,15 @@
-﻿using System;
-using EyeXFramework;
-using Tobii.EyeX.Framework;
-using Tobii.EyeX.Client;
-using Fleck;
+﻿using Fleck;
+using System;
+using Tobii.Interaction;
+using Tobii.Interaction.Client;
+
 namespace TobiiSocketServer
 {
     class Program
     {
         static void Main(string[] args)
         {
+
             int port = 8887;
             string address = "127.0.0.1";
             if (args.Length == 1)
@@ -23,15 +24,31 @@ namespace TobiiSocketServer
             }
             try
             {
-                Globs.server = new SocketServer(port, address);
-                Globs.server.start();
+
+                switch (Host.EyeXAvailability)
+                {
+                    case EyeXAvailability.NotAvailable:
+                        FleckLog.Error("This sample requires the EyeX Engine, but it isn't available.\nPlease install the EyeX Engine and try again.");
+                        return;
+
+                    case EyeXAvailability.NotRunning:
+                        FleckLog.Error("This sample requires the EyeX Engine, but it isn't rnning.\nPlease make sure that the EyeX Engine is started.");
+                        return;
+                }
+
+
+                var host = new Host();
+
+
+                var server = new SocketServer(port, address, host);
+                server.start();
             }
             catch (Exception e)
             {
-                Console.WriteLine("Failed to start server on port " + port.ToString());
+                FleckLog.Error("Failed to start server on port " + port.ToString() + ": " + e.Message);
             }
 
-            Console.ReadLine();
+            while (true) { Console.ReadLine(); }
         }
     }
 }
