@@ -1,6 +1,6 @@
 ## Synopsis
 
-**Tobii Web Socket Server** is a Web Socket Server that wraps the Tobii Interaction SDK and transmits the data through web sockets. It is a fork of the archived and discontinued https://github.com/sradevski/Tobii-EyeX-Web-Socket-Server
+**Tobii Web Socket Server** is a Web Socket Server that wraps the Tobii Interaction SDK and transmits the data through web sockets. It is a fork of the archived and discontinued https://github.com/sradevski/Tobii-EyeX-Web-Socket-Server.
 
 Some new features:
 - Reporting the state of the tracker
